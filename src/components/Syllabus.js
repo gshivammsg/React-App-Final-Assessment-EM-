@@ -4,27 +4,16 @@ import Card from './Card';
 
 const Syllabus = () => {
     const [modal, setModal] = useState(false);
-    const [taskList, setTaskList] = useState([])
+    const [taskList, setTaskList] = useState([]);
+    const [showEditCard, setShowEditCard] = useState(false);
     
-    // useEffect(() => {
-    //     let arr = localStorage.getItem("taskList")
-       
-    //     if(arr){
-    //         let obj = JSON.parse(arr)
-    //         setTaskList(obj)
-    //     }
-    // }, [])
     const fetchingData = async () => {
         try {
           const response = await fetch('http://localhost:8080/syllabus/getAllSyllabus');
           const result = await response.json();
-          console.log("result ki value --------> ",result);
           setTaskList(result.syllabus_data);
-          // setData(result);
         } catch (error) {
           console.error('Error fetching data:', error);
-        } finally {
-          // setLoading(false);
         }
     };
 
@@ -33,7 +22,6 @@ const Syllabus = () => {
             try {
               const response = await fetch('http://localhost:8080/syllabus/getAllSyllabus');
               const result = await response.json();
-              console.log("result ki value --------> ",result);
               setTaskList(result.syllabus_data);
             } catch (error) {
               console.error('Error fetching data:', error);
@@ -52,14 +40,8 @@ const Syllabus = () => {
             await fetchingData();
     }
 
-    const updateListArray = (obj, index) => {
-
-        console.log("Syllabus mei updateListArray ki value ---->",obj)
-        let tempList = taskList
-        tempList[index] = obj
-        localStorage.setItem("taskList", JSON.stringify(tempList))
-        // setTaskList(tempList)
-        window.location.reload()
+    const updateListArray = async (obj, index) => {
+      await fetchingData();
     }
 
     const toggle = () => {
@@ -82,6 +64,7 @@ const Syllabus = () => {
 
     const saveTask = async (taskObj) => {
         await fetchData(taskObj);
+        fetchingData();
         setModal(false)
     }
 
@@ -93,7 +76,7 @@ const Syllabus = () => {
                 <button className = "btn btn-primary mt-2" onClick = {() => setModal(true)} >Create Syllabus</button>
             </div>
             <div className = "task-container">
-            {taskList && taskList.map((obj , index) => <Card taskObj = {obj} index = {index} deleteTask = {()=>deleteTask(obj.id)} updateListArray = {updateListArray}/> )}
+            {taskList && taskList.map((obj , index) => <Card showEditCard={showEditCard} taskObj = {obj} index = {index} deleteTask = {()=>deleteTask(obj.id)} updateListArray = {updateListArray}/> )}
             </div>
             <CreateTask toggle = {toggle} modal = {modal} save = {saveTask}/>
         </>

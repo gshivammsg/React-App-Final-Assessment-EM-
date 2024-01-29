@@ -3,9 +3,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const CreateTag = ({modal, toggle, save}) => {
     const [tagName, setTagName] = useState('');
-    const [description, setDescription] = useState('');
-    const [topics, setTopics] = useState('');
-    const [duration, setDuration] = useState('');
 
     const handleChange = (e) => {
         const {name, value} = e.target;

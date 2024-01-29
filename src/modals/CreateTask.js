@@ -36,7 +36,7 @@ const CreateTaskPopup = ({modal, toggle, save}) => {
             <ModalBody>
             
                     <div className = "form-group">
-                        <label>Subject</label>
+                        <label>Syllabus</label>
                         <input type="text" className = "form-control" value = {syllabusName} onChange = {handleChange} name = "syllabusName"/>
                     </div>
                     <div className = "form-group">
@@ -51,10 +51,6 @@ const CreateTaskPopup = ({modal, toggle, save}) => {
                         <label>Duration</label>
                         <textarea  className = "form-control" value = {duration} onChange = {handleChange} name = "duration"></textarea>
                     </div>
-                    {/* <div className = "form-group">
-                        <label>Tag</label>
-                        <textarea  className = "form-control" value = {description} onChange = {handleChange} name = "description"></textarea>
-                    </div> */}
                 
             </ModalBody>
             <ModalFooter>

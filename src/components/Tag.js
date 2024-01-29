@@ -76,10 +76,7 @@ const Tag = () => {
 
     const saveTask = async (taskObj) => {
         await fetchData(taskObj);
-        let tempList = taskList
-        tempList.push(taskObj)
-        localStorage.setItem("taskList", JSON.stringify(tempList))
-        setTaskList(taskList)
+        await fetchingData();
         setModal(false)
     }
 
@@ -91,7 +88,7 @@ const Tag = () => {
                 <button className = "btn btn-primary mt-2" onClick = {() => setModal(true)} >Create Tag</button>
             </div>
             <div className = "task-container">
-            {taskList && taskList.map((obj , index) => <Card2 taskObj = {obj} index = {index} deleteTask = {()=>deleteTask(obj.id)} updateListArray = {updateListArray}/> )}
+            {taskList && taskList.map((obj , index) => <Card2 taskObj = {obj} index = {index} deleteTask = {()=>deleteTask(obj.tag_id)} updateListArray = {updateListArray}/> )}
             </div>
             <CreateTag toggle = {toggle} modal = {modal} save = {saveTask}/>
         </>

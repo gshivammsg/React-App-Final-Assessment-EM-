@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import EditTag from '../modals/EditTag'
+import ShowSyllabus from '../modals/ShowSyllabus';
 
 const Card2 = ({taskObj, index, deleteTask, updateListArray}) => {
     const [modal, setModal] = useState(false);
-
+    const [show, setShow] = useState(false);
     const colors = [
         {
             primaryColor : "#5D93E1",
@@ -31,6 +32,10 @@ const Card2 = ({taskObj, index, deleteTask, updateListArray}) => {
         setModal(!modal);
     }
 
+    const stoggle = () => {
+        setShow(!show);
+    }
+
     const updateTask = (obj) => {
         updateListArray(obj, index)
     }
@@ -48,11 +53,12 @@ const Card2 = ({taskObj, index, deleteTask, updateListArray}) => {
                 <span class = "card-header" style={{"background-color": colors[index%5].secondaryColor, "border-radius": "10px"}}>{taskObj.tag_name}</span>
                 
                 <div style={{"position": "absolute", "right" : "20px", "bottom" : "20px"}}>
-                    <i class = "far fa-edit mr-3" style={{"color" : colors[index%5].primaryColor, "cursor" : "pointer"}} onClick = {() => setModal(true)}></i>
+                    <i class = "fas fa-plus mr-3" style={{"color" : colors[index%5].primaryColor, "cursor" : "pointer"}} onClick = {() => setShow(true)}></i>
                     <i class="fas fa-trash-alt" style = {{"color" : colors[index%5].primaryColor, "cursor" : "pointer"}} onClick = {handleDelete}></i>
                 </div>
         </div>
         <EditTag modal = {modal} toggle = {toggle} updateTask = {updateTask} taskObj = {taskObj}/>
+        <ShowSyllabus show={show} stoggle={stoggle} id={taskObj.tag_id}></ShowSyllabus>
         </div>
         </>
         
